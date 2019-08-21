@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>XML Checker</title>
+  </head>
+  <body>
+    <script>
+      function xmlChecker(string) {
+        if (string.length == 0 || string.includes('>>')) return 0;
+        var dom = new DOMParser();
+        const xml = dom.parseFromString(string, 'text/xml');
+        // console.log(xml);
+        const firstChild = xml.documentElement.firstElementChild;
+        return firstChild ? (firstChild.nodeName == 'parsererror' ? 0 : 1) : 1;
+      }
+      document.writeln(
+        xmlChecker('<a><b property="value">This is some text</b></a>')
+      );
+      document.writeln(xmlChecker('<a><b property>This is some text</b></a>'));
+      document.writeln(xmlChecker('<a>>This is some text</a>'));
+      // document.writeln(
+      //   xmlChecker('<b><i>This text is bold and italic</i></b>')
+      // );
+      // document.writeln(xmlChecker(''));
+      // document.writeln(xmlChecker('Mobile Work'));
+    </script>
+  </body>
+</html>
